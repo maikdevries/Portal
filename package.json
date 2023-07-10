@@ -1,0 +1,20 @@
+{
+	"name": "portal",
+	"version": "0.0.1",
+	"description": "Portal is a HTTP backend written in NodeJS to control WS281X LED strips on the Raspberry Pi",
+	"author": "maikdevries",
+	"license": "MIT",
+	"homepage": "https://github.com/maikdevries/Portal",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/maikdevries/Portal.git"
+	},
+	"bugs": {
+		"url": "https://github.com/maikdevries/Portal/issues"
+	},
+	"main": "src/app.js",
+	"dependencies": {
+		"express": "^4.18.2",
+		"rpi-ws281x-native": "^1.0.4"
+	}
+}
