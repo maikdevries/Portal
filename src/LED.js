@@ -1,4 +1,5 @@
 const LED_MODULE = require('rpi-ws281x-native');
+const { CIE_1931 } = require('./constants.js');
 
 const LED_CHANNEL = LED_MODULE(300, {
 	dma: 10,
@@ -48,7 +49,7 @@ class LED {
 
 	setBrightness = (brightness) => {
 		this.brightness = brightness;
-		LED_CHANNEL.brightness = brightness;
+		LED_CHANNEL.brightness = CIE_1931[brightness];
 
 		this.render();
 
@@ -62,11 +63,22 @@ class LED {
 	setColour = (colour) => {
 		this.colour = colour;
 
-		LED_CHANNEL.array.fill(colour);
+		LED_CHANNEL.array.fill(this.#applyColourCorrection(colour));
 
 		this.render();
 
 		return this.getColour();
+	}
+
+	#applyColourCorrection = (colour) => {
+		// NOTE: Convert from HEX to RGB
+		const [r, g, b] = colour.match(/[A-Fa-f\d]{2}/g).map((x) => Number.parseInt(x, 16));
+
+		// NOTE: Apply CIE1931 colour correction through precomputed lookup table
+		const [cR, cG, cB] = [CIE_1931[r], CIE_1931[g], CIE_1931[b]];
+
+		// NOTE: Convert corrected RGB back into HEX
+		return ((cR & 0xff) << 16) + ((cG & 0xff) << 8) + (cB & 0xff);
 	}
 
 	render = () => {

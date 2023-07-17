@@ -1,6 +1,6 @@
 {
 	"name": "portal",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "Portal is a HTTP backend written in NodeJS to control WS281X LED strips on the Raspberry Pi",
 	"author": "maikdevries",
 	"license": "MIT",
