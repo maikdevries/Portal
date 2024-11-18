@@ -1,4 +1,7 @@
 {
+	"tasks": {
+		"start": "deno run --allow-env --allow-net --env-file app.ts",
+	},
 	"compilerOptions": {
 		"lib": [
 			"deno.window",
