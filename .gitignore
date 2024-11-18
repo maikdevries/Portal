@@ -1,2 +1,5 @@
-# Ignore macOS directory files
+# Ignore macOS directory settings
 .DS_Store
+
+# Ignore environment variables
+.env
