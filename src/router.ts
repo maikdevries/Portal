@@ -2,6 +2,7 @@ import type { Route } from '@std/http';
 
 import LED from './LED.ts';
 import { route, STATUS_CODE, STATUS_TEXT } from '@std/http';
+import { PROPERTY } from './types.ts';
 
 const routes: Route[] = [
 	{
@@ -12,7 +13,7 @@ const routes: Route[] = [
 	{
 		'method': 'PUT',
 		pattern: new URLPattern({ 'pathname': '/power/update' }),
-		handler: async (request: Request) => await update(request, Object.getOwnPropertyDescriptor(LED, 'power')?.set),
+		handler: async (request: Request) => await update(request, PROPERTY.POWER),
 	},
 	{
 		'method': 'GET',
@@ -22,7 +23,7 @@ const routes: Route[] = [
 	{
 		'method': 'PUT',
 		pattern: new URLPattern({ 'pathname': '/brightness/update' }),
-		handler: async (request: Request) => await update(request, Object.getOwnPropertyDescriptor(LED, 'brightness')?.set),
+		handler: async (request: Request) => await update(request, PROPERTY.BRIGHTNESS),
 	},
 	{
 		'method': 'GET',
@@ -32,7 +33,7 @@ const routes: Route[] = [
 	{
 		'method': 'PUT',
 		pattern: new URLPattern({ 'pathname': '/colour/hue/update' }),
-		handler: async (request: Request) => await update(request, Object.getOwnPropertyDescriptor(LED, 'hue')?.set),
+		handler: async (request: Request) => await update(request, PROPERTY.HUE),
 	},
 	{
 		'method': 'GET',
@@ -42,7 +43,7 @@ const routes: Route[] = [
 	{
 		'method': 'PUT',
 		pattern: new URLPattern({ 'pathname': '/colour/saturation/update' }),
-		handler: async (request: Request) => await update(request, Object.getOwnPropertyDescriptor(LED, 'saturation')?.set),
+		handler: async (request: Request) => await update(request, PROPERTY.SATURATION),
 	},
 	{
 		'method': 'GET',
@@ -52,19 +53,30 @@ const routes: Route[] = [
 	{
 		'method': 'PUT',
 		pattern: new URLPattern({ 'pathname': '/colour/temperature/update' }),
-		handler: async (request: Request) => await update(request, Object.getOwnPropertyDescriptor(LED, 'temperature')?.set),
+		handler: async (request: Request) => await update(request, PROPERTY.TEMPERATURE),
 	},
 ];
 
-async function update(request: Request, setter?: (value: unknown) => void): Promise<Response> {
-	if (!setter) return new Response(STATUS_TEXT[STATUS_CODE.NotImplemented], { 'status': STATUS_CODE.NotImplemented });
-
-	try {
-		setter(await request.json());
-		return new Response(STATUS_TEXT[STATUS_CODE.OK], { 'status': STATUS_CODE.OK });
-	} catch {
-		return new Response(STATUS_TEXT[STATUS_CODE.BadRequest], { 'status': STATUS_CODE.BadRequest });
+async function update(request: Request, property: keyof typeof PROPERTY): Promise<Response> {
+	switch (property) {
+		case PROPERTY.POWER:
+			LED.power = await request.json();
+			break;
+		case PROPERTY.BRIGHTNESS:
+			LED.brightness = await request.json();
+			break;
+		case PROPERTY.HUE:
+			LED.hue = await request.json();
+			break;
+		case PROPERTY.SATURATION:
+			LED.saturation = await request.json();
+			break;
+		case PROPERTY.TEMPERATURE:
+			LED.temperature = await request.json();
+			break;
 	}
+
+	return new Response(STATUS_TEXT[STATUS_CODE.OK], { 'status': STATUS_CODE.OK });
 }
 
 function defaultHandler(_: Request): Response {

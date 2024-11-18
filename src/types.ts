@@ -5,3 +5,11 @@ export interface State {
 	saturation: number;
 	temperature: number;
 }
+
+export const PROPERTY = {
+	POWER: 'POWER',
+	BRIGHTNESS: 'BRIGHTNESS',
+	HUE: 'HUE',
+	SATURATION: 'SATURATION',
+	TEMPERATURE: 'TEMPERATURE',
+} as const;
