@@ -1,4 +1,4 @@
-import router from './router.ts';
+import router from './src/router.ts';
 
 const PORT = Number.parseInt(Deno.env.get('PORT') ?? '');
 

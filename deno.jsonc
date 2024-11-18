@@ -30,7 +30,8 @@
 	},
 	"fmt": {
 		"include": [
-			"./src/**/*.ts",
+			"app.ts",
+			"src/**/*.ts",
 		],
 
 		"useTabs": true,
@@ -42,7 +43,8 @@
 	},
 	"lint": {
 		"include": [
-			"./src/**/*.ts",
+			"app.ts",
+			"src/**/*.ts",
 		],
 
 		"rules": {
