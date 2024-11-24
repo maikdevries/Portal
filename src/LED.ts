@@ -1,6 +1,17 @@
+import type { STRIP_TYPES } from '@maikdevries/rpi-ws281x';
 import type { State } from './types.ts';
 
+import Controller from '@maikdevries/rpi-ws281x';
+
 class LED {
+	private readonly controller = new Controller({
+		'channels': [{
+			'count': Number.parseInt(Deno.env.get('LED_COUNT') ?? ''),
+			'strip': Deno.env.get('LED_STRIP') as keyof typeof STRIP_TYPES,
+			'brightness': Number.parseInt(Deno.env.get('LED_BRIGHTNESS') ?? ''),
+		}],
+	});
+
 	private state: State = {
 		'power': false,
 		'brightness': 0,
