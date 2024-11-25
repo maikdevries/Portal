@@ -29,6 +29,9 @@ class LED {
 
 	set power({ power }: { power: boolean }) {
 		this.state.power = power;
+
+		// [NOTE] Directly set brightness to preserve current brightness for next power on
+		this.controller.first.brightness = this.state.power ? this.state.brightness : 0;
 	}
 
 	get brightness(): number {
@@ -37,6 +40,7 @@ class LED {
 
 	set brightness({ brightness }: { brightness: number }) {
 		this.state.brightness = brightness;
+		this.controller.first.brightness = brightness;
 	}
 
 	get hue(): number {
@@ -45,6 +49,7 @@ class LED {
 
 	set hue({ hue }: { hue: number }) {
 		this.state.hue = hue;
+		this.controller.first.colour = [LED.convert(this.state.hue, this.state.saturation, this.state.brightness)];
 	}
 
 	get saturation(): number {
@@ -53,6 +58,7 @@ class LED {
 
 	set saturation({ saturation }: { saturation: number }) {
 		this.state.saturation = saturation;
+		this.controller.first.colour = [LED.convert(this.state.hue, this.state.saturation, this.state.brightness)];
 	}
 
 	get temperature(): number {
