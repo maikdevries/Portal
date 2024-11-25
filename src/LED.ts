@@ -20,8 +20,7 @@ class LED {
 		'temperature': 0,
 	};
 
-	constructor() {
-	}
+	constructor() {}
 
 	get power(): boolean {
 		return this.state.power;
@@ -83,12 +82,24 @@ class LED {
 		let b = 0;
 
 		switch (Math.floor(h / 60)) {
-			case 0: [r, g, b] = [chroma, x, 0]; break;
-			case 1: [r, g, b] = [x, chroma, 0]; break;
-			case 2: [r, g, b] = [0, chroma, x]; break;
-			case 3: [r, g, b] = [0, x, chroma]; break;
-			case 4: [r, g, b] = [x, 0, chroma]; break;
-			case 5: [r, g, b] = [chroma, 0, x]; break;
+			case 0:
+				[r, g, b] = [chroma, x, 0];
+				break;
+			case 1:
+				[r, g, b] = [x, chroma, 0];
+				break;
+			case 2:
+				[r, g, b] = [0, chroma, x];
+				break;
+			case 3:
+				[r, g, b] = [0, x, chroma];
+				break;
+			case 4:
+				[r, g, b] = [x, 0, chroma];
+				break;
+			case 5:
+				[r, g, b] = [chroma, 0, x];
+				break;
 		}
 
 		return Math.round((r + m) * 255) << 16 | Math.round((g + m) * 255) << 8 | Math.round((b + m) * 255);
