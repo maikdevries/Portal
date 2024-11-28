@@ -47,7 +47,7 @@ class LED {
 
 	set hue({ hue }: { hue: number }) {
 		this.state.hue = hue;
-		this.controller.first.colour = [LED.convert(this.state.hue, this.state.saturation, this.state.brightness)];
+		this.controller.first.colour = [LED.convert(this.state.hue, this.state.saturation, 100)];
 	}
 
 	get saturation(): number {
@@ -56,7 +56,7 @@ class LED {
 
 	set saturation({ saturation }: { saturation: number }) {
 		this.state.saturation = saturation;
-		this.controller.first.colour = [LED.convert(this.state.hue, this.state.saturation, this.state.brightness)];
+		this.controller.first.colour = [LED.convert(this.state.hue, this.state.saturation, 100)];
 	}
 
 	get temperature(): number {
