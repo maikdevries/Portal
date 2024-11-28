@@ -29,7 +29,7 @@ class LED {
 		this.state.power = power;
 
 		// [NOTE] Directly set brightness to preserve current brightness for next power on
-		this.controller.first.brightness = this.state.power ? this.state.brightness : 0;
+		this.controller.first.brightness = this.state.power ? Math.round(this.state.brightness * 2.55) : 0;
 	}
 
 	get brightness(): number {
@@ -38,7 +38,7 @@ class LED {
 
 	set brightness({ brightness }: { brightness: number }) {
 		this.state.brightness = brightness;
-		this.controller.first.brightness = brightness;
+		this.controller.first.brightness = Math.round(this.state.brightness * 2.55);
 	}
 
 	get hue(): number {
