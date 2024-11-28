@@ -8,7 +8,6 @@ class LED {
 		'channels': [{
 			'count': Number.parseInt(Deno.env.get('LED_COUNT') ?? ''),
 			'strip': Deno.env.get('LED_STRIP') as keyof typeof STRIP_TYPES,
-			'brightness': Number.parseInt(Deno.env.get('LED_BRIGHTNESS') ?? ''),
 		}],
 	});
 
