@@ -1,12 +1,11 @@
 {
 	"tasks": {
-		"start": "deno run --allow-env --allow-net --env-file --allow-ffi app.ts",
+		"start": "deno run --allow-env --allow-net --env-file --allow-ffi app.ts"
 	},
 	"compilerOptions": {
 		"lib": [
-			"deno.window",
+			"deno.window"
 		],
-
 		"allowUnreachableCode": false,
 		"allowUnusedLabels": false,
 		"checkJs": false,
@@ -28,29 +27,29 @@
 		"strictNullChecks": true,
 		"strictPropertyInitialization": true,
 		"useUnknownInCatchVariables": true,
-		"verbatimModuleSyntax": true,
+		"verbatimModuleSyntax": true
 	},
 	"fmt": {
 		"include": [
 			"app.ts",
-			"src/**/*.ts",
+			"src/**/*.ts"
 		],
-
 		"useTabs": true,
 		"lineWidth": 140,
 		"indentWidth": 4,
 		"singleQuote": true,
 		"proseWrap": "always",
-		"semiColons": true,
+		"semiColons": true
 	},
 	"lint": {
 		"include": [
 			"app.ts",
-			"src/**/*.ts",
+			"src/**/*.ts"
 		],
-
 		"rules": {
-			"tags": ["recommended"],
+			"tags": [
+				"recommended"
+			],
 			"include": [
 				"camelcase",
 				"default-param-last",
@@ -75,12 +74,12 @@
 				"prefer-ascii",
 				"single-var-declarator",
 				"triple-slash-reference",
-				"verbatim-module-syntax",
-			],
-		},
+				"verbatim-module-syntax"
+			]
+		}
 	},
 	"imports": {
 		"@std/http": "jsr:@std/http",
-		"@maikdevries/rpi-ws281x": "jsr:@maikdevries/rpi-ws281x",
-	},
+		"@maikdevries/rpi-ws281x": "jsr:@maikdevries/rpi-ws281x"
+	}
 }
