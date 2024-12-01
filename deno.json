@@ -1,6 +1,6 @@
 {
 	"tasks": {
-		"start": "deno run --allow-env --allow-net --env-file --allow-ffi app.ts"
+		"start": "deno run --allow-env --allow-net --env-file --allow-read --allow-write --allow-ffi app.ts"
 	},
 	"compilerOptions": {
 		"lib": [
@@ -80,6 +80,6 @@
 	},
 	"imports": {
 		"@std/http": "jsr:@std/http",
-		"@maikdevries/rpi-ws281x": "jsr:@maikdevries/rpi-ws281x"
+		"@maikdevries/rpi-ws281x": "jsr:@maikdevries/rpi-ws281x@^0.2.0"
 	}
 }
