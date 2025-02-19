@@ -1,8 +1,8 @@
 import type { Route } from '@std/http/unstable-route';
 
-import LED from './LED.ts';
 import { STATUS_CODE, STATUS_TEXT } from '@std/http';
 import { route } from '@std/http/unstable-route';
+import LED from './LED.ts';
 import { PROPERTY } from './types.ts';
 
 const routes: Route[] = [
