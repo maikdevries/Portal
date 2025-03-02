@@ -83,7 +83,7 @@ class LED {
 		const generator = effects[this.state.effect.type];
 
 		this.interval = self.setInterval(
-			() => this.controller.first.colour = [LED.convert(...generator.next().value)],
+			() => this.controller.first.colour = [...generator.next().value.map((x) => LED.convert(...x))],
 			this.state.effect.speed,
 		);
 	}
