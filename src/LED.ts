@@ -76,14 +76,14 @@ class LED {
 		return this.state.effect;
 	}
 
-	set effect({ type }: { type: keyof typeof EFFECT_TYPES }) {
+	set effect({ speed, type }: { speed: number, type: keyof typeof EFFECT_TYPES }) {
 		this.state.effect = type;
 		self.clearInterval(this.interval);
 
 		if (this.state.effect === EFFECT_TYPES.NONE) return;
 		else {
 			const generator = effects.rainbow();
-			this.interval = self.setInterval(() => this.controller.first.colour = [LED.convert(...generator.next().value)], 250);
+			this.interval = self.setInterval(() => this.controller.first.colour = [LED.convert(...generator.next().value)], speed);
 		}
 	}
 
