@@ -13,7 +13,7 @@ export interface Effect {
 }
 
 export const EFFECT_TYPES = {
-	RAINBOW: 'RAINBOW',
+	COLOUR_CYCLE: 'COLOUR_CYCLE',
 } as const;
 
 export const PROPERTY = {

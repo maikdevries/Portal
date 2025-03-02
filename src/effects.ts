@@ -1,10 +1,10 @@
 import { EFFECT_TYPES } from './types.ts';
 
 export default {
-	[EFFECT_TYPES.RAINBOW]: rainbow(),
+	[EFFECT_TYPES.COLOUR_CYCLE]: colourCycle(),
 };
 
-function* rainbow(): Generator<[number, number, number], never, unknown> {
+function* colourCycle(): Generator<[number, number, number], never, unknown> {
 	let h = 0;
 	const s = 100;
 	const v = 100;
