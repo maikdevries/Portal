@@ -56,6 +56,16 @@ const routes: Route[] = [
 		pattern: new URLPattern({ 'pathname': '/colour/temperature/update' }),
 		handler: async (request: Request) => await update(request, PROPERTY.TEMPERATURE),
 	},
+	{
+		'method': 'GET',
+		pattern: new URLPattern({ 'pathname': '/effect/status' }),
+		handler: () => Response.json({ 'effect': LED.effect }),
+	},
+	{
+		'method': 'PUT',
+		pattern: new URLPattern({ 'pathname': '/effect/update' }),
+		handler: async (request: Request) => await update(request, PROPERTY.EFFECT),
+	},
 ];
 
 async function update(request: Request, property: keyof typeof PROPERTY): Promise<Response> {
@@ -74,6 +84,9 @@ async function update(request: Request, property: keyof typeof PROPERTY): Promis
 			break;
 		case PROPERTY.TEMPERATURE:
 			LED.temperature = await request.json();
+			break;
+		case PROPERTY.EFFECT:
+			LED.effect = await request.json();
 			break;
 	}
 

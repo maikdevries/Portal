@@ -12,4 +12,5 @@ export const PROPERTY = {
 	HUE: 'HUE',
 	SATURATION: 'SATURATION',
 	TEMPERATURE: 'TEMPERATURE',
+	EFFECT: 'EFFECT',
 } as const;
