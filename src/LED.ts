@@ -2,7 +2,7 @@ import type { STRIP_TYPES } from '@maikdevries/rpi-ws281x';
 import type { Effect, State } from './types.ts';
 
 import Controller from '@maikdevries/rpi-ws281x';
-import * as effects from './effects.ts';
+import effects from './effects.ts';
 import { EFFECT_TYPES } from './types.ts';
 
 class LED {
@@ -83,11 +83,13 @@ class LED {
 		this.state.effect = effect;
 		self.clearInterval(this.interval);
 
-		if (this.state.effect.type === EFFECT_TYPES.NONE) return;
-		else {
-			const generator = effects.rainbow();
-			this.interval = self.setInterval(() => this.controller.first.colour = [LED.convert(...generator.next().value)], this.state.effect.speed);
-		}
+		const generator = effects[this.state.effect.type];
+		if (!generator) return;
+
+		this.interval = self.setInterval(
+			() => this.controller.first.colour = [LED.convert(...generator.next().value)],
+			this.state.effect.speed,
+		);
 	}
 
 	private static convert(hue: number, saturation: number, brightness: number): number {
