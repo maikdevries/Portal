@@ -1,7 +1,6 @@
 import { EFFECT_TYPES } from './types.ts';
 
 export default {
-	[EFFECT_TYPES.NONE]: null,
 	[EFFECT_TYPES.RAINBOW]: rainbow(),
 };
 

@@ -3,7 +3,6 @@ import type { Effect, State } from './types.ts';
 
 import Controller from '@maikdevries/rpi-ws281x';
 import effects from './effects.ts';
-import { EFFECT_TYPES } from './types.ts';
 
 class LED {
 	private readonly controller = new Controller({
@@ -21,10 +20,7 @@ class LED {
 		'hue': 0,
 		'saturation': 0,
 		'temperature': 0,
-		'effect': {
-			'speed': 0,
-			'type': EFFECT_TYPES.NONE,
-		},
+		'effect': null,
 	};
 
 	constructor() {}
@@ -75,16 +71,16 @@ class LED {
 		this.state.temperature = temperature;
 	}
 
-	get effect(): Effect {
+	get effect(): Effect | null {
 		return this.state.effect;
 	}
 
-	set effect({ effect }: { effect: Effect }) {
+	set effect({ effect }: { effect: Effect | null }) {
 		this.state.effect = effect;
 		self.clearInterval(this.interval);
 
+		if (!this.state.effect) return;
 		const generator = effects[this.state.effect.type];
-		if (!generator) return;
 
 		this.interval = self.setInterval(
 			() => this.controller.first.colour = [LED.convert(...generator.next().value)],

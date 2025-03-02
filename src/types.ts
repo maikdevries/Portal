@@ -4,7 +4,7 @@ export interface State {
 	hue: number;
 	saturation: number;
 	temperature: number;
-	effect: Effect;
+	effect: Effect | null;
 }
 
 export interface Effect {
@@ -13,7 +13,6 @@ export interface Effect {
 }
 
 export const EFFECT_TYPES = {
-	NONE: 'NONE',
 	RAINBOW: 'RAINBOW',
 } as const;
 
