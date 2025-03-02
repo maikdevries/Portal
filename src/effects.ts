@@ -5,9 +5,6 @@ export default {
 };
 
 function* colourCycle(): Generator<[number, number, number], never, unknown> {
-	let h = 0;
-	const s = 100;
-	const v = 100;
-
-	while (true) yield [h++, s, v];
+	let i = 0;
+	while (true) yield [i = (i + 1) % 360, 100, 100];
 }
