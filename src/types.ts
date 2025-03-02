@@ -4,7 +4,12 @@ export interface State {
 	hue: number;
 	saturation: number;
 	temperature: number;
-	effect: keyof typeof EFFECT_TYPES;
+	effect: Effect;
+}
+
+export interface Effect {
+	speed: number;
+	type: keyof typeof EFFECT_TYPES;
 }
 
 export const EFFECT_TYPES = {

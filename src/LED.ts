@@ -1,5 +1,5 @@
 import type { STRIP_TYPES } from '@maikdevries/rpi-ws281x';
-import type { State } from './types.ts';
+import type { Effect, State } from './types.ts';
 
 import Controller from '@maikdevries/rpi-ws281x';
 import * as effects from './effects.ts';
@@ -21,7 +21,10 @@ class LED {
 		'hue': 0,
 		'saturation': 0,
 		'temperature': 0,
-		'effect': EFFECT_TYPES.NONE,
+		'effect': {
+			'speed': 0,
+			'type': EFFECT_TYPES.NONE,
+		},
 	};
 
 	constructor() {}
@@ -72,18 +75,18 @@ class LED {
 		this.state.temperature = temperature;
 	}
 
-	get effect(): keyof typeof EFFECT_TYPES {
+	get effect(): Effect {
 		return this.state.effect;
 	}
 
-	set effect({ speed, type }: { speed: number, type: keyof typeof EFFECT_TYPES }) {
-		this.state.effect = type;
+	set effect({ effect }: { effect: Effect }) {
+		this.state.effect = effect;
 		self.clearInterval(this.interval);
 
-		if (this.state.effect === EFFECT_TYPES.NONE) return;
+		if (this.state.effect.type === EFFECT_TYPES.NONE) return;
 		else {
 			const generator = effects.rainbow();
-			this.interval = self.setInterval(() => this.controller.first.colour = [LED.convert(...generator.next().value)], speed);
+			this.interval = self.setInterval(() => this.controller.first.colour = [LED.convert(...generator.next().value)], this.state.effect.speed);
 		}
 	}
 
