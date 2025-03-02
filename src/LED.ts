@@ -2,6 +2,8 @@ import type { STRIP_TYPES } from '@maikdevries/rpi-ws281x';
 import type { State } from './types.ts';
 
 import Controller from '@maikdevries/rpi-ws281x';
+import * as effects from './effects.ts';
+import { EFFECT_TYPES } from './types.ts';
 
 class LED {
 	private readonly controller = new Controller({
@@ -11,12 +13,15 @@ class LED {
 		}],
 	});
 
+	private interval = NaN;
+
 	private state: State = {
 		'power': false,
 		'brightness': 0,
 		'hue': 0,
 		'saturation': 0,
 		'temperature': 0,
+		'effect': EFFECT_TYPES.NONE,
 	};
 
 	constructor() {}
@@ -65,6 +70,21 @@ class LED {
 
 	set temperature({ temperature }: { temperature: number }) {
 		this.state.temperature = temperature;
+	}
+
+	get effect(): keyof typeof EFFECT_TYPES {
+		return this.state.effect;
+	}
+
+	set effect({ type }: { type: keyof typeof EFFECT_TYPES }) {
+		this.state.effect = type;
+		self.clearInterval(this.interval);
+
+		if (this.state.effect === EFFECT_TYPES.NONE) return;
+		else {
+			const generator = effects.rainbow();
+			this.interval = self.setInterval(() => this.controller.first.colour = [LED.convert(...generator.next().value)], 250);
+		}
 	}
 
 	private static convert(hue: number, saturation: number, brightness: number): number {
